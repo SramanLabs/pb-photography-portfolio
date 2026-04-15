@@ -85,7 +85,7 @@ const albums = [
 ]
 
 /* ─────────────────────────────────────────────────────────────────
-   ViewCursor — simplified, smoother cursor for album hovering
+   ViewCursor — Minimal Camera Focus Reticle
 ───────────────────────────────────────────────────────────────── */
 function ViewCursor({ isHovering }) {
   const innerRef = useRef(null)
@@ -131,30 +131,55 @@ function ViewCursor({ isHovering }) {
         pointerEvents: 'none',
         zIndex: 999999,
         opacity: isHovering ? 1 : 0,
-        transition: 'opacity 0.2s ease',
+        transition: 'opacity 0.25s ease',
       }}
     >
-      {/* Sleek neon glassmorphic 'VIEW' button */}
+      {/* ── Camera Reticle Container ── */}
       <div 
          style={{ 
-           width: 76, height: 76, 
-           borderRadius: '50%', 
-           background: 'rgba(10, 10, 10, 0.35)', 
-           backdropFilter: 'blur(8px)',
-           border: '1px solid rgba(245,158,11,0.7)',
+           width: 44, height: 44, 
+           position: 'relative',
            display: 'flex', alignItems: 'center', justifyContent: 'center',
-           boxShadow: '0 0 20px rgba(245,158,11,0.3), inset 0 0 12px rgba(245,158,11,0.2)',
-           color: '#f59e0b', 
-           fontFamily: 'Poppins, sans-serif', 
-           fontWeight: 600, 
-           fontSize: '11px',
-           letterSpacing: '0.15em',
-           textShadow: '0 0 8px rgba(245,158,11,0.8)',
-           transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-           transform: `scale(${isHovering ? 1 : 0.4})`
+           transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+           transform: `scale(${isHovering ? 1 : 0.4}) rotate(${isHovering ? '0deg' : '45deg'})`
          }}
       >
-        <span style={{ marginLeft: '1px' }}>VIEW</span>
+        {/* Top Left Corner */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: 8, height: 8, borderTop: '1.5px solid #f59e0b', borderLeft: '1.5px solid #f59e0b' }} />
+        {/* Top Right Corner */}
+        <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderTop: '1.5px solid #f59e0b', borderRight: '1.5px solid #f59e0b' }} />
+        {/* Bottom Left Corner */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: 8, height: 8, borderBottom: '1.5px solid #f59e0b', borderLeft: '1.5px solid #f59e0b' }} />
+        {/* Bottom Right Corner */}
+        <div style={{ position: 'absolute', bottom: 0, right: 0, width: 8, height: 8, borderBottom: '1.5px solid #f59e0b', borderRight: '1.5px solid #f59e0b' }} />
+        
+        {/* Center Focus Dot */}
+        <div style={{ 
+            width: 4, height: 4, 
+            borderRadius: '50%', 
+            background: '#f59e0b', 
+            transition: 'opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s', 
+            opacity: isHovering ? 1 : 0,
+            transform: `scale(${isHovering ? 1 : 0})`
+        }} />
+
+        {/* Tiny Label under cursor */}
+        <div style={{
+           position: 'absolute',
+           bottom: -22,
+           fontFamily: 'Poppins, sans-serif', 
+           fontWeight: 500, 
+           fontSize: '8px',
+           letterSpacing: '0.25em',
+           color: 'rgba(255,255,255,0.85)',
+           whiteSpace: 'nowrap',
+           opacity: isHovering ? 1 : 0,
+           transform: `translateY(${isHovering ? 0 : -5}px)`,
+           transition: 'all 0.4s ease 0.2s',
+           textShadow: '0 2px 8px rgba(0,0,0,0.8)'
+        }}>
+          VIEW
+        </div>
       </div>
     </div>
   )
