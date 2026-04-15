@@ -82,10 +82,24 @@ const albums = [
       "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=1000&fit=crop",
     ],
   },
+  {
+    id: 6,
+    title: "Street & Urban",
+    coverImage: "https://images.unsplash.com/photo-1493605335038-f9cb907293a9?w=600&h=800&fit=crop",
+    description: "Candid life and striking architecture in the metropolis",
+    photos: [
+      "https://images.unsplash.com/photo-1493605335038-f9cb907293a9?w=800&h=1000&fit=crop",
+      "https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800&h=1000&fit=crop",
+      "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=1000&fit=crop",
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=1000&fit=crop",
+      "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=1000&fit=crop",
+      "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&h=1000&fit=crop",
+    ],
+  },
 ]
 
 /* ─────────────────────────────────────────────────────────────────
-   ViewCursor — Minimal Camera Focus Reticle
+   ViewCursor — Cinematic Autofocus Crosshair
 ───────────────────────────────────────────────────────────────── */
 function ViewCursor({ isHovering }) {
   const innerRef = useRef(null)
@@ -103,7 +117,7 @@ function ViewCursor({ isHovering }) {
       const mx = mouseRef.current.x
       const my = mouseRef.current.y
 
-      // Very smooth, crisp lerp tracking
+      // Smooth tracking
       innerPos.current.x += (mx - innerPos.current.x) * 0.28
       innerPos.current.y += (my - innerPos.current.y) * 0.28
 
@@ -131,52 +145,49 @@ function ViewCursor({ isHovering }) {
         pointerEvents: 'none',
         zIndex: 999999,
         opacity: isHovering ? 1 : 0,
-        transition: 'opacity 0.25s ease',
+        transition: 'opacity 0.2s ease',
       }}
     >
-      {/* ── Camera Reticle Container ── */}
+      {/* ── Cinematic Crosshair Container ── */}
       <div 
          style={{ 
-           width: 44, height: 44, 
+           width: 22, height: 22, 
            position: 'relative',
            display: 'flex', alignItems: 'center', justifyContent: 'center',
-           transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-           transform: `scale(${isHovering ? 1 : 0.4}) rotate(${isHovering ? '0deg' : '45deg'})`
+           transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+           transform: `scale(${isHovering ? 1 : 0.3})`
          }}
       >
-        {/* Top Left Corner */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: 8, height: 8, borderTop: '1.5px solid #f59e0b', borderLeft: '1.5px solid #f59e0b' }} />
-        {/* Top Right Corner */}
-        <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderTop: '1.5px solid #f59e0b', borderRight: '1.5px solid #f59e0b' }} />
-        {/* Bottom Left Corner */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: 8, height: 8, borderBottom: '1.5px solid #f59e0b', borderLeft: '1.5px solid #f59e0b' }} />
-        {/* Bottom Right Corner */}
-        <div style={{ position: 'absolute', bottom: 0, right: 0, width: 8, height: 8, borderBottom: '1.5px solid #f59e0b', borderRight: '1.5px solid #f59e0b' }} />
+        {/* Outer subtle guide ring */}
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid rgba(245,158,11,0.3)' }} />
         
-        {/* Center Focus Dot */}
+        {/* Top/Bottom Crosshairs */}
+        <div style={{ position: 'absolute', top: -3, left: '50%', transform: 'translateX(-50%)', width: 1, height: 6, background: 'rgba(245,158,11,0.95)' }} />
+        <div style={{ position: 'absolute', bottom: -3, left: '50%', transform: 'translateX(-50%)', width: 1, height: 6, background: 'rgba(245,158,11,0.95)' }} />
+        
+        {/* Left/Right Crosshairs */}
+        <div style={{ position: 'absolute', left: -3, top: '50%', transform: 'translateY(-50%)', width: 6, height: 1, background: 'rgba(245,158,11,0.95)' }} />
+        <div style={{ position: 'absolute', right: -3, top: '50%', transform: 'translateY(-50%)', width: 6, height: 1, background: 'rgba(245,158,11,0.95)' }} />
+        
+        {/* Glowing Center Focus Dot */}
         <div style={{ 
-            width: 4, height: 4, 
+            width: 2.5, height: 2.5, 
             borderRadius: '50%', 
             background: '#f59e0b', 
-            transition: 'opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s', 
-            opacity: isHovering ? 1 : 0,
-            transform: `scale(${isHovering ? 1 : 0})`
+            boxShadow: '0 0 10px #f59e0b'
         }} />
 
-        {/* Tiny Label under cursor */}
+        {/* View Text */}
         <div style={{
            position: 'absolute',
-           bottom: -22,
+           bottom: -15,
            fontFamily: 'Poppins, sans-serif', 
-           fontWeight: 500, 
-           fontSize: '8px',
-           letterSpacing: '0.25em',
-           color: 'rgba(255,255,255,0.85)',
-           whiteSpace: 'nowrap',
+           fontWeight: 600, 
+           fontSize: '6px',
+           letterSpacing: '0.2em',
+           color: '#f59e0b',
            opacity: isHovering ? 1 : 0,
-           transform: `translateY(${isHovering ? 0 : -5}px)`,
-           transition: 'all 0.4s ease 0.2s',
-           textShadow: '0 2px 8px rgba(0,0,0,0.8)'
+           transition: 'opacity 0.4s ease 0.1s'
         }}>
           VIEW
         </div>
