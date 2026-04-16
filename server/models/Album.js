@@ -25,6 +25,9 @@ const albumSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Index for faster sorting by order
+albumSchema.index({ order: 1 });
+
 const Album = mongoose.model('Album', albumSchema);
 
 export default Album;

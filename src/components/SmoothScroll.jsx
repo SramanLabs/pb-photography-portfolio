@@ -27,10 +27,10 @@ const SmoothScroll = ({ children }) => {
 
     const onWheel = (e) => {
       e.preventDefault()
-      targetY += e.deltaY * wheelMultiplier
-      // Clamp to document bounds
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight
+      // Use a slightly more responsive multiplier but maintain smoothness
+      targetY += e.deltaY * 0.85 
+      
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
       targetY = Math.max(0, Math.min(targetY, maxScroll))
 
       if (!isRunning) {
@@ -41,18 +41,19 @@ const SmoothScroll = ({ children }) => {
 
     const tick = () => {
       const diff = targetY - currentY
-      // Stop animating when close enough (sub-pixel)
-      if (Math.abs(diff) < 0.5) {
+      
+      // Dynamic lerp: faster when far, silkier when close
+      const distance = Math.abs(diff)
+      const factor = distance > 200 ? 0.08 : 0.06 
+      
+      if (distance < 0.1) {
         currentY = targetY
         window.scrollTo(0, currentY)
         isRunning = false
         return
       }
 
-      // Apply easeOutExpo to the progress ratio, then lerp
-      const progress = Math.min(Math.abs(diff) / window.innerHeight, 1)
-      const easedFactor = 0.07 + easeOutExpo(progress) * 0.03
-      currentY = lerp(currentY, targetY, easedFactor)
+      currentY = lerp(currentY, targetY, factor)
       window.scrollTo(0, currentY)
       rafId = requestAnimationFrame(tick)
     }

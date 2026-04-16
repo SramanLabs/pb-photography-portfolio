@@ -35,6 +35,9 @@ const testimonialSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Indexes for faster visibility filtering and date sorting
+testimonialSchema.index({ visible: 1, createdAt: -1 });
+
 const Testimonial = mongoose.model('Testimonial', testimonialSchema);
 
 export default Testimonial;
