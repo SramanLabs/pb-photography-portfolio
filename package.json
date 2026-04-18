@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "axios": "^1.15.0",
     "framer-motion": "^10.16.5",
     "jwt-decode": "^4.0.0",
@@ -18,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.6.0",
     "react-pageflip": "^2.0.3",
-    "react-router-dom": "^6.20.0"
+    "react-router-dom": "^6.20.0",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

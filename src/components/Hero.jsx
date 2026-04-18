@@ -186,7 +186,7 @@ const Hero = () => {
           style={{ transformStyle: 'preserve-3d' }}
         >
           <img
-            src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop"
+            src="/flashcard2.png"
             className="w-full h-36 object-cover rounded-sm"
             alt="Wedding"
           />
@@ -204,7 +204,7 @@ const Hero = () => {
           style={{ transformStyle: 'preserve-3d' }}
         >
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=280&fit=crop"
+            src="/flashcard1.png"
             className="w-full h-36 object-cover rounded-sm"
             alt="Portrait"
           />
