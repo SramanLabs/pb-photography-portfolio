@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Users, 
@@ -42,6 +43,7 @@ const StatCard = ({ icon: Icon, label, value, trend, delay }) => (
 );
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     albums: 0,
     photos: 0,
@@ -125,7 +127,7 @@ const Dashboard = () => {
             <div className="p-6 border-b border-white/5 flex items-center justify-between">
                 <h3 className="text-lg font-playfair font-bold text-white">Recent Inquiries</h3>
                 <button 
-                    onClick={() => toast('Redirecting to full list...')}
+                    onClick={() => navigate('/admin/contacts')}
                     className="text-amber-500 text-[10px] uppercase tracking-[0.2em] font-bold hover:text-amber-400 flex items-center gap-2 group"
                 >
                     View All <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -202,8 +204,8 @@ const Dashboard = () => {
                         {localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).email.charAt(0).toUpperCase() : 'A'}
                     </div>
                     <div>
-                        <h4 className="text-lg font-playfair font-bold text-white">Project Admin</h4>
-                        <p className="text-[10px] text-amber-500 uppercase tracking-widest font-bold">PB Videography</p>
+                        <h4 className="text-lg font-playfair font-bold text-white">Admin</h4>
+                        <p className="text-[10px] text-amber-500 uppercase tracking-widest font-bold">PB Photography</p>
                     </div>
                 </div>
                 <div className="space-y-4">

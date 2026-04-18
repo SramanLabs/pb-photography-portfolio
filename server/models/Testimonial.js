@@ -10,8 +10,7 @@ const testimonialSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true
+    type: String
   },
   image: {
     type: String,
