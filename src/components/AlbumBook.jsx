@@ -260,7 +260,7 @@ const AlbumBook = ({ album, onClose }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden"
       style={{ background: 'radial-gradient(ellipse at center, #1c1a17 0%, #0a0908 100%)' }}
     >
       {/* Inject backface CSS fix */}
@@ -278,14 +278,14 @@ const AlbumBook = ({ album, onClose }) => {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 flex items-center justify-between w-full max-w-5xl px-4 sm:px-6 mb-4 sm:mb-6">
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="flex items-center gap-2 sm:gap-3">
+      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between w-full px-6 py-6 sm:px-10 pointer-events-none">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="flex items-center gap-2 sm:gap-3 pointer-events-auto">
           <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
           <span className="text-amber-400 font-playfair font-semibold text-base sm:text-lg truncate max-w-[200px]">{album.title}</span>
         </motion.div>
         <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}
-          onClick={onClose} className="flex items-center gap-1.5 text-white/45 hover:text-white transition-colors group">
-          <span className="text-[10px] sm:text-xs tracking-wider group-hover:text-amber-400 transition-colors font-poppins">Close</span>
+          onClick={onClose} className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors group px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 pointer-events-auto shadow-lg cursor-pointer">
+          <span className="text-xs tracking-[0.2em] group-hover:text-amber-400 transition-colors font-poppins font-medium uppercase">Close</span>
           <X className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-amber-400 transition-colors" />
         </motion.button>
       </div>
