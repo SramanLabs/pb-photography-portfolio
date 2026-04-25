@@ -47,8 +47,8 @@ const Hero = () => {
         className="absolute inset-0 scale-110"
       >
         <img
-          src="/p1.png"
-          alt="Cinematic photography background"
+          src="/hero_photographer.png"
+          alt="Photographer holding a camera"
           className="w-full h-full object-cover"
         />
         {/* Dark gradient overlay */}
