@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-export const BASE_URL = import.meta.env.VITE_API_URL || '';
+// Strip trailing slash to prevent double-slash URLs (e.g. https://api.com//api/albums)
+const rawApiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
+export const BASE_URL = rawApiUrl;
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api',
+  baseURL: rawApiUrl ? `${rawApiUrl}/api` : '/api',
 });
 
 // Add a request interceptor to attach the JWT token to every request
